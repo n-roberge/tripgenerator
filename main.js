@@ -113,7 +113,6 @@ function entertainmentGenerator(){
 //function to change a part of the trip
 function changeTrip(){
    
-    //let validInput = ["1","2","3","4"]
     let userInput = prompt("Which would you like to change:\nPress 1 for Destination\nPress 2 for Restaurant\nPress 3 for Transportation\nPress 4 for Entertainment");
    
     switch(userInput){
