@@ -11,7 +11,7 @@ let transportation = ["personal car", "taxi", "train", "boat"];
 let entertainment = ["drinks", "arcade", "sports event", "museum"];
 
 //trip information library
-let tripInfo = [];
+let tripInfo = {};
 
 //random generator
 function randomGenerator(myArray){
@@ -31,12 +31,9 @@ function destinationGenerator(){
             alert(`Enjoy traveling to ${randomDestination}!`);
             userHappy = true;
 
-            //pushes the destination to the tripInfo dictionary
-            tripInfo.push({
-                destination: randomDestination
-            });
-
-            return randomDestination;
+            //updates the destination to the tripInfo dictionary
+            tripInfo["Destination"] = randomDestination;
+            return randomDestination, tripInfo;
         }
 
         else if (userResponse.toLowerCase() === "no"){
@@ -57,12 +54,9 @@ function restaurantGenerator(){
             alert(`Enjoy eating at ${randomRestaurant}!`);
             userHappy = true;
 
-            tripInfo.push({
-                key:"restaurant",
-                value: randomRestaurant
-            });
-
-            return randomRestaurant;
+            tripInfo["Restaurant"] = randomRestaurant;
+            return randomRestaurant, tripInfo;
+            
         }
 
         else if (userResponse.toLowerCase() === "no"){
@@ -83,12 +77,8 @@ function transportationGenerator(){
             alert(`Enjoy traveling by ${randomTransportation}!`);
             userHappy = true;
 
-            tripInfo.push({
-                key:"transportation",
-                value: randomTransportation
-            });
-
-            return randomTransportation;
+            tripInfo["Transportation"] = randomTransportation;
+            return randomTransportation, tripInfo;
         }
 
         else if (userResponse.toLowerCase() === "no"){
@@ -109,11 +99,9 @@ function entertainmentGenerator(){
             alert(`Enjoy ${randomEntertainment}!`);
             userHappy = true;
 
-            tripInfo.push({
-                entertainment: randomEntertainment
-            });
+            tripInfo["Entertainment"] = randomEntertainment;
 
-            return randomEntertainment;
+            return randomEntertainment, tripInfo;
         }
 
         else if (userResponse.toLowerCase() === "no"){
@@ -153,7 +141,6 @@ function changeTrip(){
 //displays initial alert of trip information and prompts user if they want to keep it
 function tripSatisfaction(){
     let userSatisfaction = false;
-    alert(tripInfo);
 
     while(userSatisfaction === false){
         let userResponse = prompt(`Your current trip details are:\n${JSON.stringify(tripInfo, undefined, 2)}\nAre you satisfied with your trip? (Yes or No)`);
@@ -170,17 +157,17 @@ function tripSatisfaction(){
     };
 };
 
-//necessary?
-function startUp(){ 
-    tripInfo.push({
+//initializes all of the random elements and stores them in a dictionary
+function startUp(){
+    tripInfo = {
         Destination: randomGenerator(destinations),
         Restaurant: randomGenerator(restaurants),
         Transportation: randomGenerator(transportation),
         Entertainment: randomGenerator(entertainment)
-    });
-
-    alert("Your trip inital trip information is:\n" + JSON.stringify(tripInfo, undefined, 2))
-
+    };
+    
+    return tripInfo;
 };
 
-changeTrip();
+startUp();
+tripSatisfaction();
